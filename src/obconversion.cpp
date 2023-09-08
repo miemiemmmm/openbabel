@@ -852,7 +852,7 @@ namespace OpenBabel {
     // Also set the C++ stream locale
     locale originalLocale = pInput->getloc(); // save the original
     locale cNumericLocale(originalLocale, "C", locale::numeric);
-    pInput->imbue(cNumericLocale);
+    // pInput->imbue(cNumericLocale);
 
     // skip molecules if -f or -l option is set
     if (!SkippedMolecules) {
@@ -873,7 +873,7 @@ namespace OpenBabel {
     // return the C locale to the original one
     obLocale.RestoreLocale();
     // Restore the original C++ locale as well
-    pInput->imbue(originalLocale);
+    // pInput->imbue(originalLocale);
 
     // If we failed to read, plus the stream is over, then check if this is a stream from ReadFile
     if (!success && !pInput->good() && ownedInStreams.size() > 0) {
@@ -901,7 +901,7 @@ namespace OpenBabel {
     // Also set the C++ stream locale
     locale originalLocale = pOutput->getloc(); // save the original
     locale cNumericLocale(originalLocale, "C", locale::numeric);
-    pOutput->imbue(cNumericLocale);
+    // pOutput->imbue(cNumericLocale);
 
     // Increment the output counter.
     // This is done *before* the WriteMolecule because some of
@@ -916,7 +916,7 @@ namespace OpenBabel {
     // return the C locale to the original one
     obLocale.RestoreLocale();
     // Restore the C++ stream locale too
-    pOutput->imbue(originalLocale);
+    // pOutput->imbue(originalLocale);
 
     return success;
   }
@@ -1071,7 +1071,9 @@ namespace OpenBabel {
   bool	OBConversion::ReadString(OBBase* pOb, std::string input)
   {
     SetInStream(new stringstream(input), true);
-    return Read(pOb);
+    bool sucks=false;
+    sucks=Read(pOb);
+    return sucks;
   }
 
 

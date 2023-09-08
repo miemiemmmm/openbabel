@@ -89,44 +89,12 @@ namespace OpenBabel
     }
   }
 
-  void OBLocale::SetLocale()
+	void OBLocale::SetLocale()
   {
-    if (d->counter == 0) {
-      // Set the locale for number parsing to avoid locale issues: PR#1785463
-#if HAVE_USELOCALE
-      // Extended per-thread interface
-      d->old_locale = uselocale(d->new_c_num_locale);
-#else
-#ifndef ANDROID
-      // Original global POSIX interface
-      // regular UNIX, no USELOCALE, no ANDROID
-      d->old_locale_string = strdup(setlocale(LC_NUMERIC, nullptr));
-#else
-      // ANDROID should stay as "C" -- Igor Filippov
-      d->old_locale_string = "C";
-#endif
-  	  setlocale(LC_NUMERIC, "C");
-#endif
-    }
-
-    ++d->counter;
   }
 
   void OBLocale::RestoreLocale()
   {
-    --d->counter;
-    if(d->counter == 0) {
-      // return the locale to the original one
-#ifdef HAVE_USELOCALE
-      uselocale(d->old_locale);
-#else
-      setlocale(LC_NUMERIC, d->old_locale_string);
-#ifndef ANDROID
-      // Don't free on Android because "C" is a static ctring constant
-      free (d->old_locale_string);
-#endif
-#endif
-    }
   }
 
   //global definitions

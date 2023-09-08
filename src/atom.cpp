@@ -446,9 +446,9 @@ namespace OpenBabel
   OBResidue *OBAtom::GetResidue()
   {
     OBMol *mol = this->GetParent();
-    if (!mol->HasChainsPerceived())
-      chainsparser.PerceiveChains(*mol);
-
+//   AV hack: this is not only obscurely placed (GetResidue is normal API) but also seg-faults
+//    if (!mol->HasChainsPerceived())
+//      chainsparser.PerceiveChains(*mol);
     return _residue;
   }
 

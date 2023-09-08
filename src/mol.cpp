@@ -2171,6 +2171,21 @@ namespace OpenBabel
         if (whichHydrogen == NonPolarHydrogen && AtomIsNSOP(atom))
           continue;
 
+				// AV Hack: skip apparent nitro groups regardless of options
+        vector<OBBond*>::iterator itr;
+        OBBond *pbond;
+        int nCsbnda=0,nOsbnda=0,nNsbnda=0;
+        for (pbond = atom->BeginBond(itr);pbond;pbond = atom->NextBond(itr))
+        {
+            OBAtom* pNbratom = pbond->GetNbrAtom(atom);
+            if (pNbratom->GetAtomicNum() == 6) {nCsbnda++;}
+            else if (pNbratom->GetAtomicNum() == 7) {nNsbnda++;}
+            else if (pNbratom->GetAtomicNum() == 8) {nOsbnda++;}
+        }
+        if ((nOsbnda == 2) && (nNsbnda == 0) && (nCsbnda == 1) && (atom->GetAtomicNum() == 7)) {
+          continue;
+        }
+
         hcount = atom->GetImplicitHCount();
         atom->SetImplicitHCount(0);
 

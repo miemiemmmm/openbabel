@@ -177,13 +177,13 @@ namespace OpenBabel
   {
     matrix3x3 m;
     vector3 v;
-    locale cLocale("C");
+//    locale cLocale("C");
 
     if (s.find(',') != string::npos)
       {
         string s1 = RemoveWhiteSpaceUnderscore(s);
         istringstream iss(s1);
-        iss.imbue(cLocale);
+//        iss.imbue(cLocale);
 
         string row;
         int i;
@@ -278,7 +278,7 @@ namespace OpenBabel
     else if (s.find(' ') != string::npos)
       {
         istringstream iss(s);
-        iss.imbue(cLocale);
+//        iss.imbue(cLocale);
         /* supposing the string is a list of at least 12 float values. If there are
            16, the last four are 0., 0., 0. and 1. and are not needed */
         iss >> m(0,0) >> m(0,1) >> m(0,2) >> v.x();

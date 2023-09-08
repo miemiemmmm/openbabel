@@ -518,8 +518,8 @@ bool ChemKinFormat::ParseReactionLine(OBReaction* pReact, OBConversion* pConv)
 
       //Read in rate parameters
       stringstream ss(*itr);
-      locale cLocale("C");
-      ss.imbue(cLocale);
+      // locale cLocale("C");
+      // ss.imbue(cLocale);
 
       double val;
       ss >> val;
